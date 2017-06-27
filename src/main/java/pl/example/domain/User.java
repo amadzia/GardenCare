@@ -28,6 +28,17 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<GardenCareToDo> gardenCareToDos = new TreeSet<GardenCareToDo>();
 
+    public User() {
+    }
+
+    public User(User user) {
+        this.id = user.id;
+        this.username = user.username;
+        this.password = user.password;
+        this.authorities = user.authorities;
+        this.gardenCareToDos = user.gardenCareToDos;
+    }
+
 
     public Long getId() {
         return id;
