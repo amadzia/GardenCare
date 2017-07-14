@@ -1,5 +1,7 @@
 package pl.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import javax.persistence.ManyToOne;
  */
 
 @Entity
+@JsonIgnoreProperties({"user"})
 public class GardenCareToDo implements Comparable<GardenCareToDo> {
 
     @Id
@@ -67,17 +70,26 @@ public class GardenCareToDo implements Comparable<GardenCareToDo> {
     @Override
     public int compareTo(GardenCareToDo gardenCareToDo) {
 
-        int isDone = this.done.compareTo(gardenCareToDo.done);
-        if (isDone == 0) {
-            int monthOfActivity = this.monthOfActivity.compareTo(gardenCareToDo.monthOfActivity);
-            if (monthOfActivity == 0) {
-                return this.id.compareTo(gardenCareToDo.id);
-            } else {
-                return monthOfActivity;
-            }
-        } else {
-            return isDone;
+        int a = this.done.compareTo(gardenCareToDo.done);
+        if (a == 0) {
+            a = this.monthOfActivity.compareTo(gardenCareToDo.monthOfActivity);
         }
+        if (a == 0) {
+            a = this.id.compareTo(gardenCareToDo.id);
+        }
+        return a;
     }
 
+    @Override
+    public String toString() {
+        return "GardenCareToDo{" +
+                "id=" + id +
+                ", task='" + task + '\'' +
+                ", done=" + done +
+                ", monthOfActivity=" + monthOfActivity +
+                ", user=" + user +
+                '}';
+    }
 }
+
+

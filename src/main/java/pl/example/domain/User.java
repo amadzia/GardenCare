@@ -1,5 +1,6 @@
 package pl.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import pl.example.security.Authorities;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.TreeSet;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"authorities", "gardenCareToDos"})
 public class User {
 
     @Id
